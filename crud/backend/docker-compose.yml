@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+    pg:
+        container_name: techtest-postgres
+        image: postgres:9.6
+        restart: always
+        ports:
+            - 5434:5432
+        environment:
+            POSTGRES_USER: fmst0
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: techtestdb
