@@ -114,13 +114,7 @@ module.exports =
 
     async delete(req, resp)
     {
-        const {id} = request.params;
-
-        const product = await connection('product')
-            .where('id',id)
-            .select('*')
-            .first();
-
+        const {id} = req.params;
         await connection('product').where('id',id).delete();
         
         // Cód. 204: No Content - resposta de sucesso sem corpo
