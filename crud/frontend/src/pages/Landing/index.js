@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Button, Text, TextInput, Layer, CheckBoxGroup, Sidebar} from 'grommet';
-import {FormSearch, Trash} from 'grommet-icons';
+import {FormEdit, FormSearch, Trash} from 'grommet-icons';
 import api from '../../services/api.js'
 import { useState, useEffect } from 'react';
 
@@ -116,9 +116,7 @@ function Landing(props)
     .catch((error)=>{
       alert(error);
     })
-
   }
-
 
   function createProduct()
   {
@@ -166,56 +164,11 @@ function Landing(props)
   }, [])
 
 
-    return (
-      <>
-      <Box>
-
-      
-      <Box>
-     
-      
-      
-      <Button gap='medium' label="Criar Produto" onClick={() => setShow(true)} />
-      {show && (
-        <Layer 
-          onEsc={() => setShow(false)}
-          onClickOutside={() => setShow(false)}
-        >
-          
-          <Box gap='medium' margin='small' pad='20px'style={{
-            maxHeight:'700px'
-          }}>
-           
-
-            <TextInput placeholder='Name' margin='medium' onChange={(e)=>{
-              setName(e.target.value)
-            }}/>
-
-            <TextInput placeholder='Description' margin='medium' onChange={(e)=>{
-              setDescription(e.target.value)
-            }}/>
-
-            <TextInput placeholder='Value' margin='medium' onChange={(e)=>{
-              setValue(e.target.value)
-            }}/>
-
-            <Box>
-                <CheckBoxGroup onChange={(value, option)=>{
-                    setCategories(value.value)
-                }} options={cat_names.map((element)=>{
-                  return {label:element.name, value:element.id};
-                })} />
-               </Box>
-            <Box pad='10px' gap='small'>
-              <Button label="save" onClick={() => createProduct()} />
-              <Button label='Cancelar' fill color='red' onClick={() => setShow(false)} />
-            </Box>
-          </Box>
-        </Layer>
-      )}
-    </Box>
-    <Box direction='row-responsive'>
-      <Sidebar margin='5px' pad='small' width='20%'>
+  return (
+  <>
+    <Box> 
+      <Box direction='row-responsive'>
+        <Sidebar margin='5px' pad='medium' width='20%'>
           <TextInput icon={<FormSearch />} placeholder='Nome' onChange={(e)=>{
               setSearchName(e.target.value);
             }}>
@@ -233,24 +186,64 @@ function Landing(props)
                 }} options={cat_names.map((element)=>{
                   return element.name;
                 })} />
-          <Button > </Button>
           <Button label="Buscar" onClick={() => searchProducts()} />
         </Sidebar>
+        <Box>
+     
+      
+          <Box alignContent='center' alignContent='center' align='center' basis='xsmall'>
+            <Button size='medium' alignSelf='center' margin='medium' pad='5px' label="Criar Produto" onClick={() => setShow(true)} />
+            {show && (
+              <Layer onEsc={() => setShow(false)}
+                    onClickOutside={() => setShow(false)} >
+         
+                <Box gap='medium' margin='small' pad='20px'style={{
+                  maxHeight:'700px'
+                }}>
+          
 
-     <Box alignSelf='end' margin='5px' >
-       {
-         product.length>0?
-         product.map((element, i)=>(
-          <ProductContainer onDelete={DeleteProduct} product={element} key={i} />
-         ))
-         :
-         <></>
-       }
-     </Box>
+                  <TextInput placeholder='Name' margin='medium' onChange={(e)=>{
+                    setName(e.target.value)
+                  }}/>
 
+                  <TextInput placeholder='Description' margin='medium' onChange={(e)=>{
+                    setDescription(e.target.value)
+                  }}/>
+
+                  <TextInput placeholder='Value' margin='medium' onChange={(e)=>{
+                    setValue(e.target.value)
+                  }}/>
+
+                  <Box>
+                      <CheckBoxGroup onChange={(value, option)=>{
+                          setCategories(value.value)
+                      }} options={cat_names.map((element)=>{
+                        return {label:element.name, value:element.id};
+                      })} />
+                  </Box>
+                  <Box pad='10px' gap='small'>
+                    <Button label="save" onClick={() => createProduct()} />
+                    <Button label='Cancelar' fill color='red' onClick={() => setShow(false)} />
+                  </Box>
+                </Box>
+              </Layer>
+            )}
+          </Box>
+
+          <Box alignSelf='end' margin='5px' >
+          {
+            product.length>0?
+            product.map((element, i)=>(
+              <ProductContainer onDelete={DeleteProduct} product={element} key={i} />
+            ))
+            :
+            <></>
+          }
+          </Box>
+
+        </Box>
+      </Box>
     </Box>
-    </Box>
-
   </>
   );
 }
@@ -258,7 +251,7 @@ function Landing(props)
 function ProductContainer(props)
 {
   return(
-      <>
+    <>
       <Box alignSelf='center' border
             round='small' width='large'
             margin='xsmall' align='center'
@@ -287,13 +280,16 @@ function ProductContainer(props)
         }}>
           <Trash color='red' />
         </Box>
-      </Box>
-    </>
+
+        <Box pad='20px' onClick={()=>{
+          alert('n tem ainda')
+            }}>
+          <FormEdit />
+        </Box>
+    </Box>
+  </>
   );
 }
-
-
-
 
 
 export default Landing;
