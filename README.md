@@ -23,6 +23,8 @@ To use a .csv to populate the database put the file in the backend/src/ director
 After this, you need to run the rebuild.bash 
 > ./rebuild.bash
 
+If the rebuild.bash keeps executing please do a CTRL+C after some time and do the following:
+
 Still in the backend directory run the server with:
 > npm start
 
