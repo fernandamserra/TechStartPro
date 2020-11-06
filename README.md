@@ -15,11 +15,13 @@ For the backend, it was used JavaScript with Node.js to develop a RESTFul API . 
 
 ## Running the Application
 
-Before running the application you need to go to the backend directory and install all the dependencies with:
+Before running the application you need to go to the backend and frontend directory  and install all the dependencies in each one with:
 > npm install
 
+To use a .csv to populate the database put the file in the backend/src/ directory and change the reference to the file name in the populate file.
+
 After this, you need to run the rebuild.bash 
-> build
+> ./rebuild.bash
 
 Still in the backend directory run the server with:
 > npm start
@@ -27,5 +29,4 @@ Still in the backend directory run the server with:
 To run the web app, run the same command in the folder 'frontend'.
 
 ----------------
-
 Thank you for the opportunity!
