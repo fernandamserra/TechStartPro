@@ -167,8 +167,8 @@ function Landing(props)
   return (
   <>
     <Box> 
-      <Box direction='row-responsive'>
-        <Sidebar margin='5px' pad='medium' width='20%'>
+      <Box direction='row-responsive' justify='center' width='xxlarge'>
+        <Sidebar margin='2%' pad='large' width='20%'>
           <TextInput icon={<FormSearch />} placeholder='Nome' onChange={(e)=>{
               setSearchName(e.target.value);
             }}>
@@ -191,8 +191,10 @@ function Landing(props)
         <Box>
      
       
-          <Box alignContent='center' alignContent='center' align='center' basis='xsmall'>
-            <Button size='medium' alignSelf='center' margin='medium' pad='5px' label="Criar Produto" onClick={() => setShow(true)} />
+          <Box alignSelf='center' basis='xsmall'
+               fill='horizontal' justify='center'
+          >
+            <Button size='small' alignSelf='center' margin='medium' pad='5px' label="Criar Produto" onClick={() => setShow(true)} />
             {show && (
               <Layer onEsc={() => setShow(false)}
                     onClickOutside={() => setShow(false)} >
@@ -230,7 +232,7 @@ function Landing(props)
             )}
           </Box>
 
-          <Box alignSelf='end' margin='5px' >
+          <Box fill='horizontal' alignSelf='end' margin='5px' >
           {
             product.length>0?
             product.map((element, i)=>(
@@ -250,6 +252,17 @@ function Landing(props)
 
 function ProductContainer(props)
 {
+  const [show, setShow] = React.useState();
+  const [a_name, setAlteredName] = React.useState('');
+  const [a_value, setAlteredValue] = React.useState(0);
+  const [a_description, setAlteredDescription] = React.useState('');
+  const [a_categories, setAlteredCategories] = React.useState([]);
+  
+  function updateProduct()
+  {
+
+  }
+
   return(
     <>
       <Box alignSelf='center' border
@@ -282,8 +295,49 @@ function ProductContainer(props)
         </Box>
 
         <Box pad='20px' onClick={()=>{
-          alert('n tem ainda')
-            }}>
+          setShow(true);
+          }}>
+          {show && (
+            <Layer onEsc={() => setShow(false)}
+                  onClickOutside={() => setShow(false)} >
+       
+              <Box gap='medium' margin='small' pad='20px'style={{
+                maxHeight:'700px'
+              }}>
+  
+                <TextInput value={props.product.name}  margin='medium' onChange={(e)=>{
+                  setAlteredName(e.target.value)
+                }}/>
+
+                <TextInput value={ props.product.description} margin='medium' onChange={(e)=>{
+                  setAlteredDescription(e.target.value)
+                }}/>
+
+                <TextInput value={props.product.value} margin='medium' onChange={(e)=>{
+                  setAlteredValue(e.target.value)
+                }}/>
+
+                <Box>
+                  {
+                    console.log([props.product.prod_cat])
+                  }
+                    <CheckBoxGroup onChange={(value, option)=>{
+                        setAlteredCategories(value.value)
+                    }} options={[props.product.prod_cat].map((element)=>{
+                      console.log(element)
+                      const splits = element.split(',')
+                      console.log(splits)
+                      return {label:element, value:element.id};
+                    })} />
+                </Box>
+                <Box pad='10px' gap='small'>
+                  <Button label="save" onClick={() => updateProduct()} />
+                  <Button label='Cancelar' fill color='red' onClick={() => setShow(false)}/>
+                </Box>
+              </Box>
+            </Layer>
+          )}
+
           <FormEdit />
         </Box>
     </Box>
